@@ -16,5 +16,10 @@ namespace SimpleRegister.UI
         {
             InitializeComponent();
         }
+
+        private void rUsuarios_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
