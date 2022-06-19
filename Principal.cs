@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleRegister.UI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,12 @@ namespace SimpleRegister
         public Principal()
         {
             InitializeComponent();
+        }
+
+        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rUsuarios rusuarios = new rUsuarios();
+            rusuarios.Show();
         }
     }
 }
