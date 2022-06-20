@@ -167,5 +167,10 @@ namespace SimpleRegister.UI
         {
 
         }
+
+        private void BuscarButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

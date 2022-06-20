@@ -46,6 +46,7 @@ namespace SimpleRegister.UI
             this.NuevoButton = new System.Windows.Forms.Button();
             this.EliminarButton = new System.Windows.Forms.Button();
             this.USUARIOS = new System.Windows.Forms.Label();
+            this.BuscarButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -141,6 +142,7 @@ namespace SimpleRegister.UI
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.BuscarButton);
             this.groupBox1.Controls.Add(this.EliminarButton);
             this.groupBox1.Controls.Add(this.NuevoButton);
             this.groupBox1.Controls.Add(this.GuardarButton);
@@ -228,6 +230,18 @@ namespace SimpleRegister.UI
             this.USUARIOS.TabIndex = 1;
             this.USUARIOS.Text = "Usuarios";
             // 
+            // BuscarButton
+            // 
+            this.BuscarButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BuscarButton.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BuscarButton.Location = new System.Drawing.Point(219, 63);
+            this.BuscarButton.Name = "BuscarButton";
+            this.BuscarButton.Size = new System.Drawing.Size(91, 31);
+            this.BuscarButton.TabIndex = 13;
+            this.BuscarButton.Text = "Buscar";
+            this.BuscarButton.UseVisualStyleBackColor = false;
+            this.BuscarButton.Click += new System.EventHandler(this.BuscarButton_Click);
+            // 
             // rUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -266,5 +280,6 @@ namespace SimpleRegister.UI
         private System.Windows.Forms.Button NuevoButton;
         private System.Windows.Forms.Button GuardarButton;
         private System.Windows.Forms.Label USUARIOS;
+        private System.Windows.Forms.Button BuscarButton;
     }
 }
