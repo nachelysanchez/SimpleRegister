@@ -19,6 +19,7 @@ namespace SimpleRegister.UI
             InitializeComponent();
             cmd = new SqlConnection(@"Data Source = DESKTOP-K8OJCDL\SQLEXPRESS ; Initial Catalog = ProyectoDb ; Integrated Security = True");
             CargarComboBox();
+            Nuevo();
         }
 
         private void rUsuarios_Load(object sender, EventArgs e)
@@ -29,19 +30,142 @@ namespace SimpleRegister.UI
 
         private void CargarComboBox()
         {
-            DataTable dt = new DataTable();
-            using (cmd)
+            try
             {
-                string query = "SELECT * FROM Roles";
+                DataTable dt = new DataTable();
+                using (cmd)
+                {
+                    string query = "SELECT * FROM Roles";
 
-                SqlCommand command = new SqlCommand(query, cmd);
-                SqlDataAdapter da = new SqlDataAdapter(command);
-                da.Fill(dt);
+                    SqlCommand command = new SqlCommand(query, cmd);
+                    SqlDataAdapter da = new SqlDataAdapter(command);
+                    da.Fill(dt);
+                }
+
+                comboRol.DisplayMember = "Nombre";
+                comboRol.ValueMember = "RolId";
+                comboRol.DataSource = dt;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ha ocurrido una excepción: ");
+                throw;
             }
 
-            comboBox1.DisplayMember = "Nombre";
-            comboBox1.ValueMember = "RolId";
-            comboBox1.DataSource = dt;
+        }
+
+        private void getUltimoUsuario()
+        {
+            try
+            {
+                cmd = new SqlConnection(@"Data Source = DESKTOP-K8OJCDL\SQLEXPRESS ; Initial Catalog = ProyectoDb ; Integrated Security = True");
+                DataTable dt = new DataTable();
+                using (cmd)
+                {
+                    string query = "SELECT top(1) UsuarioId FROM Usuarios Order by UsuarioId desc";
+
+                    SqlCommand command = new SqlCommand(query, cmd);
+                    SqlDataAdapter da = new SqlDataAdapter(command);
+                    da.Fill(dt);
+                }
+                if (dt.Rows.Count == 0)
+                {
+                    Idtxt.Text = "1";
+                }
+                else
+                {
+                    int id = int.Parse(dt.Rows[0]["UsuarioId"].ToString());
+                    Idtxt.Text = (id++).ToString();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ha ocurrido una excepción: ");
+            }
+
+
+        }
+        private void Nuevo()
+        {
+            getUltimoUsuario();
+            Idtxt.ReadOnly = true;
+
+            txtNombre.Text = string.Empty;
+            txtPassword.Text = string.Empty;
+            txtUser.Text = string.Empty;
+            comboRol.SelectedIndex = 0;
+        }
+
+        private bool Validar()
+        {
+            bool paso = true;
+            if (MessageBox.Show("¿Estás seguro de querer guardar este usuario?", "Observación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if (txtNombre.Text == "")
+                {
+                    paso = false;
+                    MessageBox.Show("Debe de llevar el campo nombre");
+                    txtNombre.Focus();
+                }
+                else if (txtPassword.Text == "")
+                {
+                    paso = false;
+                    MessageBox.Show("Debe de llevar el campo Contraseña");
+                    txtPassword.Focus();
+                }
+                else if (txtUser.Text == "")
+                {
+                    paso = false;
+                    MessageBox.Show("Debe de llevar el campo Nombre de usuario");
+                    txtUser.Focus();
+                }
+            }
+            return paso;
+        }
+        private void NuevoButton_Click(object sender, EventArgs e)
+        {
+            Nuevo();
+        }
+
+        private void GuardarButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!Validar())
+                {
+                    return;
+                }
+                cmd = new SqlConnection(@"Data Source = DESKTOP-K8OJCDL\SQLEXPRESS ; Initial Catalog = ProyectoDb ; Integrated Security = True");
+                cmd.Open();
+                using (cmd)
+                {
+                    string query = $"INSERT INTO Usuarios VALUES ({int.Parse(Idtxt.Text)},'{txtNombre.Text}', '{txtUser.Text}', '{txtPassword.Text}', {comboRol.SelectedIndex + 1})";
+
+                    SqlCommand command = new SqlCommand(query, cmd);
+                    int i = command.ExecuteNonQuery();
+                    cmd.Close();
+                    if (i > 0)
+                    {
+                        MessageBox.Show("El usuario fue guardado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ocurrio un error al guardar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Ha ocurrido una excepción: ");
+            }
+
+
+        }
+
+        private void EliminarButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
