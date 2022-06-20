@@ -165,6 +165,34 @@ namespace SimpleRegister.UI
 
         private void EliminarButton_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (MessageBox.Show("¿Estás seguro de querer eliminar este usuario?", "Observación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    cmd = new SqlConnection(@"Data Source = DESKTOP-K8OJCDL\SQLEXPRESS ; Initial Catalog = ProyectoDb ; Integrated Security = True");
+                    cmd.Open();
+                    using (cmd)
+                    {
+                        string query = $"DELETE FROM Usuarios WHERE UsuarioId = {int.Parse(Idtxt.Text)}";
+
+                        SqlCommand command = new SqlCommand(query, cmd);
+                        int i = command.ExecuteNonQuery();
+                        cmd.Close();
+                        if (i > 0)
+                        {
+                            MessageBox.Show("El usuario fue eliminado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ocurrio un error al guardar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ha ocurrido una excepción: ");
+            }
 
         }
 
