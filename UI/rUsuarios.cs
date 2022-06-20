@@ -170,6 +170,16 @@ namespace SimpleRegister.UI
 
         private void BuscarButton_Click(object sender, EventArgs e)
         {
+            rBusqueda rBusqueda = new rBusqueda(this);
+            rBusqueda.Show();
+        }
+
+        public void RecibirDatos(int id, string nombre, string user, int rol)
+        {
+            Idtxt.Text = id.ToString();
+            txtNombre.Text = nombre;
+            txtUser.Text = user;
+            comboRol.SelectedIndex = rol - 1;
 
         }
     }
