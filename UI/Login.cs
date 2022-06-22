@@ -59,5 +59,10 @@ namespace SimpleRegister.UI
                 principal.Show();
             }
         }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
