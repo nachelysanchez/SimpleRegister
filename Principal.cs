@@ -23,5 +23,11 @@ namespace SimpleRegister
             rUsuarios rusuarios = new rUsuarios();
             rusuarios.Show();
         }
+
+        private void suplidoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rSuplidores rsuplidores = new rSuplidores();
+            rsuplidores.Show();
+        }
     }
 }
