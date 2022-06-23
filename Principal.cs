@@ -29,5 +29,11 @@ namespace SimpleRegister
             rSuplidores rsuplidores = new rSuplidores();
             rsuplidores.Show();
         }
+
+        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rClientes rClientes = new rClientes();
+            rClientes.Show();
+        }
     }
 }

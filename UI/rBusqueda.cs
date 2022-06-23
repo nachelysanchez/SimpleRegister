@@ -16,6 +16,7 @@ namespace SimpleRegister.UI
         SqlConnection cmd;
         private rUsuarios Rusuarios;
         private rSuplidores RSuplidores;
+        private rClientes RClientes;
         string modelo;
         public rBusqueda()
         {
@@ -35,7 +36,7 @@ namespace SimpleRegister.UI
 
         private void BusquedaUsuarios()
         {
-            string[] filtro = { "Id", "Nombres" };
+            string[] filtro = { "UsuarioId", "Nombres" };
             filtroCombo.DataSource = filtro;
         }
 
@@ -51,7 +52,23 @@ namespace SimpleRegister.UI
 
         private void BusquedaSuplidores()
         {
-            string[] filtro = { "Id", "Nombres" };
+            string[] filtro = { "SuplidorId", "Nombres" };
+            filtroCombo.DataSource = filtro;
+        }
+
+        //BUSQUEDA CLIENTES
+        public rBusqueda(rClientes rClientes)
+        {
+            InitializeComponent();
+
+            modelo = "clientes";
+            RClientes = rClientes;
+            BusquedaClientes();
+        }
+
+        private void BusquedaClientes()
+        {
+            string[] filtro = { "ClienteId", "Nombres" };
             filtroCombo.DataSource = filtro;
         }
 
@@ -68,7 +85,7 @@ namespace SimpleRegister.UI
                         {
                             using (cmd)
                             {
-                                string query = $"SELECT * FROM Usuarios WHERE UsuarioId = {txtCriterio.Text}";
+                                string query = $"SELECT * FROM Usuarios WHERE {filtroCombo.Text} like '%{txtCriterio.Text}%'";
 
                                 SqlCommand command = new SqlCommand(query, cmd);
                                 SqlDataAdapter da = new SqlDataAdapter(command);
@@ -94,11 +111,11 @@ namespace SimpleRegister.UI
                 case "suplidores":
                     if (txtCriterio.Text.Trim().Length > 0)
                     {
-                        if (filtroCombo.SelectedIndex == 0 || filtroCombo.SelectedIndex == 1)
+                        if (filtroCombo.SelectedIndex == 1)
                         {
                             using (cmd)
                             {
-                                string query = $"SELECT * FROM Suplidores WHERE SuplidorId = {txtCriterio.Text}";
+                                string query = $"SELECT * FROM Suplidores WHERE {filtroCombo.Text} like '%{txtCriterio.Text}%'";
 
                                 SqlCommand command = new SqlCommand(query, cmd);
                                 SqlDataAdapter da = new SqlDataAdapter(command);
@@ -106,6 +123,18 @@ namespace SimpleRegister.UI
                             }
                             busquedadtg.DataSource = dt;
 
+                        }
+                        else
+                        {
+                            using (cmd)
+                            {
+                                string query = $"SELECT * FROM Suplidores WHERE {filtroCombo.Text} = {txtCriterio.Text}";
+
+                                SqlCommand command = new SqlCommand(query, cmd);
+                                SqlDataAdapter da = new SqlDataAdapter(command);
+                                da.Fill(dt);
+                            }
+                            busquedadtg.DataSource = dt;
                         }
                     }
                     else
@@ -121,8 +150,52 @@ namespace SimpleRegister.UI
                         busquedadtg.DataSource = dt;
                     }
                     break;
+                case "clientes":
+                    if (txtCriterio.Text.Trim().Length > 0)
+                    {
+                        if (filtroCombo.SelectedIndex == 1)
+                        {
+                            using (cmd)
+                            {
+                                string query = $"SELECT * FROM Clientes WHERE {filtroCombo.Text} like '%{txtCriterio.Text}%'";
+
+                                SqlCommand command = new SqlCommand(query, cmd);
+                                SqlDataAdapter da = new SqlDataAdapter(command);
+                                da.Fill(dt);
+                            }
+                            busquedadtg.DataSource = dt;
+
+                        }
+                        else
+                        {
+                            using (cmd)
+                            {
+                                string query = $"SELECT * FROM Clientes WHERE {filtroCombo.Text} = {txtCriterio.Text}";
+
+                                SqlCommand command = new SqlCommand(query, cmd);
+                                SqlDataAdapter da = new SqlDataAdapter(command);
+                                da.Fill(dt);
+                            }
+                            busquedadtg.DataSource = dt;
+
+                        }
+                    }
+                    else
+                    {
+                        using (cmd)
+                        {
+                            string query = $"SELECT * FROM Clientes";
+
+                            SqlCommand command = new SqlCommand(query, cmd);
+                            SqlDataAdapter da = new SqlDataAdapter(command);
+                            da.Fill(dt);
+                        }
+                        busquedadtg.DataSource = dt;
+                    }
+                    break;
                 default:
                     break;
+
             }
            
             

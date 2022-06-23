@@ -147,6 +147,7 @@ namespace SimpleRegister.UI
                     if (i > 0)
                     {
                         MessageBox.Show("El usuario fue guardado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Nuevo();
                     }
                     else
                     {
@@ -181,6 +182,7 @@ namespace SimpleRegister.UI
                         if (i > 0)
                         {
                             MessageBox.Show("El usuario fue eliminado exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            Nuevo();
                         }
                         else
                         {

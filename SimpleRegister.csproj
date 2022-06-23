@@ -66,6 +66,12 @@
     <Compile Include="UI\rBusqueda.Designer.cs">
       <DependentUpon>rBusqueda.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\rClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\rClientes.Designer.cs">
+      <DependentUpon>rClientes.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\rSuplidores.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\rBusqueda.resx">
       <DependentUpon>rBusqueda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\rClientes.resx">
+      <DependentUpon>rClientes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\rSuplidores.resx">
       <DependentUpon>rSuplidores.cs</DependentUpon>
