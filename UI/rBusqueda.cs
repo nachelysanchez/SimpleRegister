@@ -17,6 +17,7 @@ namespace SimpleRegister.UI
         private rUsuarios Rusuarios;
         private rSuplidores RSuplidores;
         private rClientes RClientes;
+        private rProductos RProductos;
         string modelo;
         public rBusqueda()
         {
@@ -72,6 +73,22 @@ namespace SimpleRegister.UI
             filtroCombo.DataSource = filtro;
         }
 
+        //BUSQUEDA PRODUCTOS
+        public rBusqueda(rProductos rProductos)
+        {
+            InitializeComponent();
+
+            modelo = "productos";
+            RProductos = rProductos;
+            BusquedaProductos();
+        }
+
+        private void BusquedaProductos()
+        {
+            string[] filtro = { "ProductoId", "Nombre" };
+            filtroCombo.DataSource = filtro;
+        }
+
         private void BuscarButton_Click(object sender, EventArgs e)
         {
             cmd = new SqlConnection(@"Data Source = DESKTOP-K8OJCDL\SQLEXPRESS ; Initial Catalog = ProyectoDb ; Integrated Security = True");
@@ -106,6 +123,10 @@ namespace SimpleRegister.UI
                             da.Fill(dt);
                         }
                         busquedadtg.DataSource = dt;
+                    }
+                    if (dt == null)
+                    {
+                        MessageBox.Show($"No existen {modelo}");
                     }
                     break;
                 case "suplidores":
@@ -148,6 +169,10 @@ namespace SimpleRegister.UI
                             da.Fill(dt);
                         }
                         busquedadtg.DataSource = dt;
+                    }
+                    if (dt == null)
+                    {
+                        MessageBox.Show($"No existen {modelo}");
                     }
                     break;
                 case "clientes":
@@ -192,6 +217,57 @@ namespace SimpleRegister.UI
                         }
                         busquedadtg.DataSource = dt;
                     }
+                    if (dt == null)
+                    {
+                        MessageBox.Show($"No existen {modelo}");
+                    }
+                    break;
+                case "productos":
+                    if (txtCriterio.Text.Trim().Length > 0)
+                    {
+                        if (filtroCombo.SelectedIndex == 1)
+                        {
+                            using (cmd)
+                            {
+                                string query = $"SELECT * FROM Productos WHERE {filtroCombo.Text} like '%{txtCriterio.Text}%'";
+
+                                SqlCommand command = new SqlCommand(query, cmd);
+                                SqlDataAdapter da = new SqlDataAdapter(command);
+                                da.Fill(dt);
+                            }
+                            busquedadtg.DataSource = dt;
+
+                        }
+                        else
+                        {
+                            using (cmd)
+                            {
+                                string query = $"SELECT * FROM Productos WHERE {filtroCombo.Text} = {txtCriterio.Text}";
+
+                                SqlCommand command = new SqlCommand(query, cmd);
+                                SqlDataAdapter da = new SqlDataAdapter(command);
+                                da.Fill(dt);
+                            }
+                            busquedadtg.DataSource = dt;
+
+                        }
+                    }
+                    else
+                    {
+                        using (cmd)
+                        {
+                            string query = $"SELECT * FROM Productos";
+
+                            SqlCommand command = new SqlCommand(query, cmd);
+                            SqlDataAdapter da = new SqlDataAdapter(command);
+                            da.Fill(dt);
+                        }
+                        busquedadtg.DataSource = dt;
+                    }
+                    if (dt == null)
+                    {
+                        MessageBox.Show($"No existen {modelo}");
+                    }
                     break;
                 default:
                     break;
@@ -226,6 +302,30 @@ namespace SimpleRegister.UI
                         int empresaS = int.Parse(busquedadtg.Rows[rowindex].Cells[4].Value.ToString());
                         RSuplidores.RecibirDatos(idS,nombreS,telefono,Cedula,empresaS);
                         RSuplidores.Focus();
+                        this.Close();
+                        break;
+                    case "clientes":
+                        int idC = int.Parse(busquedadtg.Rows[rowindex].Cells[0].Value.ToString());
+                        string nombreC = busquedadtg.Rows[rowindex].Cells[1].Value.ToString();
+                        string telefonoC = busquedadtg.Rows[rowindex].Cells[2].Value.ToString();
+                        string CelularC = busquedadtg.Rows[rowindex].Cells[3].Value.ToString();
+                        string Correo = busquedadtg.Rows[rowindex].Cells[4].Value.ToString();
+                        int sexo = int.Parse(busquedadtg.Rows[rowindex].Cells[5].Value.ToString());
+
+                        RClientes.RecibirDatos(idC, nombreC, telefonoC, CelularC, Correo, sexo);
+                        RClientes.Focus();
+                        this.Close();
+                        break;
+                    case "productos":
+                        int idP = int.Parse(busquedadtg.Rows[rowindex].Cells[0].Value.ToString());
+                        string nombreP = busquedadtg.Rows[rowindex].Cells[1].Value.ToString();
+                        float precioC = float.Parse(busquedadtg.Rows[rowindex].Cells[2].Value.ToString());
+                        float precioV = float.Parse(busquedadtg.Rows[rowindex].Cells[3].Value.ToString());
+                        int Existencia = int.Parse(busquedadtg.Rows[rowindex].Cells[4].Value.ToString());
+                        int marca = int.Parse(busquedadtg.Rows[rowindex].Cells[5].Value.ToString());
+
+                        RProductos.RecibirDatos(idP, nombreP, precioC, precioV, Existencia, marca);
+                        RProductos.Focus();
                         this.Close();
                         break;
                 }

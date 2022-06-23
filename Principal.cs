@@ -35,5 +35,11 @@ namespace SimpleRegister
             rClientes rClientes = new rClientes();
             rClientes.Show();
         }
+
+        private void productosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rProductos productos = new rProductos();
+            productos.Show();
+        }
     }
 }
