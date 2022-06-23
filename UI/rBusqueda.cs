@@ -241,7 +241,7 @@ namespace SimpleRegister.UI
                         {
                             using (cmd)
                             {
-                                string query = $"SELECT * FROM Productos WHERE {filtroCombo.Text} like '%{txtCriterio.Text}%'";
+                                string query = $"SELECT ProductoId AS Id, p.Nombre, PrecioCompra AS 'Precio de compra', PrecioVenta AS 'Precio de venta', Existencia, m.Nombre AS Marca FROM Productos AS p INNER JOIN Marcas AS m on m.MarcarId = p.MarcaId  WHERE {filtroCombo.Text} like '%{txtCriterio.Text}%'";
 
                                 SqlCommand command = new SqlCommand(query, cmd);
                                 SqlDataAdapter da = new SqlDataAdapter(command);
@@ -254,7 +254,7 @@ namespace SimpleRegister.UI
                         {
                             using (cmd)
                             {
-                                string query = $"SELECT * FROM Productos WHERE {filtroCombo.Text} = {txtCriterio.Text}";
+                                string query = $"SELECT ProductoId AS Id, p.Nombre, PrecioCompra AS 'Precio de compra', PrecioVenta AS 'Precio de venta', Existencia, m.Nombre AS Marca FROM Productos AS p INNER JOIN Marcas AS m on m.MarcarId = p.MarcaId WHERE {filtroCombo.Text} = {txtCriterio.Text}";
 
                                 SqlCommand command = new SqlCommand(query, cmd);
                                 SqlDataAdapter da = new SqlDataAdapter(command);
@@ -268,7 +268,7 @@ namespace SimpleRegister.UI
                     {
                         using (cmd)
                         {
-                            string query = $"SELECT * FROM Productos";
+                            string query = $"SELECT ProductoId AS Id, p.Nombre, PrecioCompra AS 'Precio de compra', PrecioVenta AS 'Precio de venta', Existencia, m.Nombre AS Marca FROM Productos AS p INNER JOIN Marcas AS m on m.MarcarId = p.MarcaId";
 
                             SqlCommand command = new SqlCommand(query, cmd);
                             SqlDataAdapter da = new SqlDataAdapter(command);

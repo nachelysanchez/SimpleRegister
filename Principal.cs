@@ -61,5 +61,25 @@ namespace SimpleRegister
             cSuplidores supl = new cSuplidores();
             supl.Show();
         }
+
+        private void productosToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            cProductos pro = new cProductos();
+            pro.Show();
+        }
+
+        private void informaciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Realizado por Nachely Victoria Sánchez Burgos. \n Matricula: 100046842");
+        }
+
+        private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if ((MessageBox.Show("¿Estás seguro que desea cerrar sesión?", "Ventana principal", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            {
+                new Login().Show();
+                this.Close();
+            }
+        }
     }
 }
