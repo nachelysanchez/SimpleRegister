@@ -1,4 +1,5 @@
 ﻿using SimpleRegister.UI;
+using SimpleRegister.UI.Consultas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,9 +45,21 @@ namespace SimpleRegister
 
         private void clientesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            SimpleRegister.UI.Consultas.cClientes cClientes = new SimpleRegister.UI.Consultas.cClientes();
+            cClientes cClientes = new cClientes();
             cClientes.Show();
 
+        }
+
+        private void usuariosToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            cUsuarios user = new cUsuarios();
+            user.Show();
+        }
+
+        private void suplidoresToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            cSuplidores supl = new cSuplidores();
+            supl.Show();
         }
     }
 }

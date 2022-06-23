@@ -98,11 +98,11 @@ namespace SimpleRegister.UI
                 case "usuarios":
                     if (txtCriterio.Text.Trim().Length > 0)
                     {
-                        if (filtroCombo.SelectedIndex == 0 || filtroCombo.SelectedIndex == 1)
+                        if (filtroCombo.SelectedIndex == 1)
                         {
                             using (cmd)
                             {
-                                string query = $"SELECT * FROM Usuarios WHERE {filtroCombo.Text} like '%{txtCriterio.Text}%'";
+                                string query = $"SELECT UsuarioId AS Id, Nombres, NombreUsuario AS 'Nombre de Usuario', r.Nombre AS Rol FROM Usuarios AS u INNER JOIN Roles AS r on r.RolId = u.RolId WHERE {filtroCombo.Text} like '%{txtCriterio.Text}%' ";
 
                                 SqlCommand command = new SqlCommand(query, cmd);
                                 SqlDataAdapter da = new SqlDataAdapter(command);
@@ -111,12 +111,24 @@ namespace SimpleRegister.UI
                             busquedadtg.DataSource = dt;
 
                         }
+                        else
+                        {
+                            using (cmd)
+                            {
+                                string query = $"SELECT UsuarioId AS Id, Nombres, NombreUsuario AS 'Nombre de Usuario', r.Nombre AS Rol FROM Usuarios AS u INNER JOIN Roles AS r on r.RolId = u.RolId WHERE {filtroCombo.Text} = {txtCriterio.Text}";
+
+                                SqlCommand command = new SqlCommand(query, cmd);
+                                SqlDataAdapter da = new SqlDataAdapter(command);
+                                da.Fill(dt);
+                            }
+                            busquedadtg.DataSource = dt;
+                        }
                     }
                     else
                     {
                         using (cmd)
                         {
-                            string query = $"SELECT * FROM Usuarios";
+                            string query = $"SELECT UsuarioId AS Id, Nombres, NombreUsuario AS 'Nombre de Usuario', r.Nombre AS Rol FROM Usuarios AS u INNER JOIN Roles AS r on r.RolId = u.RolId";
 
                             SqlCommand command = new SqlCommand(query, cmd);
                             SqlDataAdapter da = new SqlDataAdapter(command);
@@ -136,7 +148,7 @@ namespace SimpleRegister.UI
                         {
                             using (cmd)
                             {
-                                string query = $"SELECT * FROM Suplidores WHERE {filtroCombo.Text} like '%{txtCriterio.Text}%'";
+                                string query = $"SELECT SuplidorId AS Id, Nombres, Telefono, Cedula, e.Nombre AS Empresa FROM Suplidores AS s INNER JOIN Empresas AS e on e.EmpresaId = s.EmpresaId WHERE {filtroCombo.Text} like '%{txtCriterio.Text}%'";
 
                                 SqlCommand command = new SqlCommand(query, cmd);
                                 SqlDataAdapter da = new SqlDataAdapter(command);
@@ -149,7 +161,7 @@ namespace SimpleRegister.UI
                         {
                             using (cmd)
                             {
-                                string query = $"SELECT * FROM Suplidores WHERE {filtroCombo.Text} = {txtCriterio.Text}";
+                                string query = $"SELECT SuplidorId AS Id, Nombres, Telefono, Cedula, e.Nombre AS Empresa FROM Suplidores AS s INNER JOIN Empresas AS e on e.EmpresaId = s.EmpresaId WHERE {filtroCombo.Text} = {txtCriterio.Text}";
 
                                 SqlCommand command = new SqlCommand(query, cmd);
                                 SqlDataAdapter da = new SqlDataAdapter(command);
@@ -162,7 +174,7 @@ namespace SimpleRegister.UI
                     {
                         using (cmd)
                         {
-                            string query = $"SELECT * FROM Suplidores";
+                            string query = $"SELECT SuplidorId AS Id, Nombres, Telefono, Cedula, e.Nombre AS Empresa FROM Suplidores AS s INNER JOIN Empresas AS e on e.EmpresaId = s.EmpresaId";
 
                             SqlCommand command = new SqlCommand(query, cmd);
                             SqlDataAdapter da = new SqlDataAdapter(command);
@@ -182,7 +194,7 @@ namespace SimpleRegister.UI
                         {
                             using (cmd)
                             {
-                                string query = $"SELECT * FROM Clientes WHERE {filtroCombo.Text} like '%{txtCriterio.Text}%'";
+                                string query = $"SELECT UsuarioId AS Id, Nombres, NombreUsuario AS 'Nombre de Usuario', r.Nombre AS Rol FROM Usuarios AS u INNER JOIN Roles AS r on r.RolId = u.RolId WHERE {filtroCombo.Text} like '%{txtCriterio.Text}%' ";
 
                                 SqlCommand command = new SqlCommand(query, cmd);
                                 SqlDataAdapter da = new SqlDataAdapter(command);
@@ -195,7 +207,7 @@ namespace SimpleRegister.UI
                         {
                             using (cmd)
                             {
-                                string query = $"SELECT * FROM Clientes WHERE {filtroCombo.Text} = {txtCriterio.Text}";
+                                string query = $"SELECT ClienteId AS Id, Nombres, Telefono, Celular, s.Nombre AS Sexo FROM Clientes AS c INNER JOIN Sexos AS s on s.SexoId = c.SexoId WHERE {filtroCombo.Text} = {txtCriterio.Text}";
 
                                 SqlCommand command = new SqlCommand(query, cmd);
                                 SqlDataAdapter da = new SqlDataAdapter(command);
@@ -209,7 +221,7 @@ namespace SimpleRegister.UI
                     {
                         using (cmd)
                         {
-                            string query = $"SELECT * FROM Clientes";
+                            string query = $"SELECT ClienteId AS Id, Nombres, Telefono, Celular, s.Nombre AS Sexo FROM Clientes AS c INNER JOIN Sexos AS s on s.SexoId = c.SexoId";
 
                             SqlCommand command = new SqlCommand(query, cmd);
                             SqlDataAdapter da = new SqlDataAdapter(command);
