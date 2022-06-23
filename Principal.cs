@@ -41,5 +41,12 @@ namespace SimpleRegister
             rProductos productos = new rProductos();
             productos.Show();
         }
+
+        private void clientesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            SimpleRegister.UI.Consultas.cClientes cClientes = new SimpleRegister.UI.Consultas.cClientes();
+            cClientes.Show();
+
+        }
     }
 }
